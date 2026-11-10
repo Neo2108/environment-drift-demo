@@ -4,48 +4,45 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Environment Drift in Self-Improving LLM Agents: an interactive demo</title>
-<meta name="description" content="Replay of a prompt-level self-improvement loop on GSM8K, showing how changes to an agent's environment inflate the apparent gain of a candidate scored against a stored reference.">
-<link rel="stylesheet" href="style.css">
+<meta name="description" content="A replay of five measured GSM8K runs in which an agent rewrites its own instruction, the environment changes underneath it, and a stale reference lets weaker instructions through.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Environment Drift in Self-Improving LLM Agents: an interactive demo">
+<meta property="og:description" content="A replay of five measured GSM8K runs in which a stale reference lets weaker instructions through.">
+<meta property="og:image" content="https://anupama-27.github.io/environment-drift-demo/media/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
+<a class="skip" href="#stage">Skip to the demo</a>
 <div id="sample-banner" class="banner" hidden>
   Development sample. These runs used a mock model to test the interface. None of the numbers below were measured.
 </div>
 
 <header class="masthead">
-  <div class="masthead-title">
-    <p class="kicker">NAACL 2027 System Demonstrations</p>
-    <h1>Environment Drift in Self-Improving LLM Agents: Measuring Reference Staleness and False Promotions</h1>
-    <p class="dek">An interactive replay of five measured runs on GSM8K: an agent rewrites its own instruction, the answer extractor changes underneath it, and a stale reference lets weaker instructions through. Step 8 shows how the same system maps onto financial QA and code generation, without results for those tasks.</p>
-    <nav class="links" id="links" aria-label="Project links" hidden></nav>
-  </div>
-  <dl class="runinfo" id="runinfo" aria-label="Run information"></dl>
+  <p class="kicker">NAACL 2027 System Demonstrations</p>
+  <h1>Environment Drift in Self-Improving LLM Agents: Measuring Reference Staleness and False Promotions</h1>
+  <p class="dek">An interactive replay of five measured runs on GSM8K.</p>
+  <nav class="links" id="links" aria-label="Project links" hidden></nav>
 </header>
 
-<div class="layout">
-  <nav class="steps" aria-label="Demo steps">
-    <ol id="stepnav"></ol>
-    <div class="seedpick">
-      <label for="seed">Precomputed run</label>
-      <select id="seed"></select>
-      <p class="seednote">Seed 5 opens first because every false promotion it makes after a change traces to the stale reference. All five seeds are selectable, and the dashboard pools them.</p>
-    </div>
-  </nav>
+<nav class="steps" aria-label="Demo steps">
+  <ol id="stepnav"></ol>
+  <div class="seedpick">
+    <div><label for="seed">Run</label> <select id="seed"></select></div>
+    <p class="footnote" id="runnote"></p>
+  </div>
+</nav>
 
-  <main id="stage" tabindex="-1" aria-live="polite"></main>
-</div>
+<main id="stage" tabindex="-1" aria-live="polite">
+  <div class="skeleton" aria-label="Loading the replay"><span></span><span></span><span></span><span></span></div>
+</main>
 
 <footer class="pagefoot">
-  <section class="about">
-    <h2>What this is</h2>
-    <p>The page replays runs that were computed in advance, so every accuracy, win count and false-accept count was measured and nothing is generated here. The agent is Qwen2.5-1.5B-Instruct solving GSM8K word problems. It rewrites its own instruction each round, and a candidate instruction is promoted if it wins more questions than it loses against a stored reference.</p>
-    <p>Midway through each run the environment changes: decoding first, then decoding and the answer extractor together. The lenient extractor accepts everything the strict one does and some more, so it can only add credit. A reference scored before the change and a candidate scored after it are no longer measured with the same ruler.</p>
-    <h2>What it does not show</h2>
-    <p>One model, one task and two kinds of change, over five seeds. Promotion and the check that labels a promotion false use the same 200 questions, and the check measures both instructions in the environment in force. Call counts are logical counts from a dry run, not measured inference cost. The section on other applications is an illustration and reports no results. Financial QA and code generation were not evaluated.</p>
-  </section>
+  <p><b>Limits.</b> All numbers were measured in advance; nothing is generated on this page. One model, one task, five seeds. Promotion and the false accept check use the same 200 questions. Call counts are estimates from a dry run. Financial QA and code are an illustration and were not run.</p>
   <section class="video" id="video"></section>
 </footer>
 
-<script src="app.js"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>
