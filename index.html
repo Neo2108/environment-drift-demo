@@ -9,9 +9,12 @@
 <meta property="og:title" content="Environment Drift in Self-Improving LLM Agents: an interactive demo">
 <meta property="og:description" content="A replay of five measured GSM8K runs in which a stale reference lets weaker instructions through.">
 <meta property="og:image" content="https://anupama-27.github.io/environment-drift-demo/media/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Environment Drift in Self-Improving LLM Agents, with a chart of net gain per round against a stored and a regenerated reference">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 <a class="skip" href="#stage">Skip to the demo</a>
@@ -29,7 +32,7 @@
 <nav class="steps" aria-label="Demo steps">
   <ol id="stepnav"></ol>
   <div class="seedpick">
-    <div><label for="seed">Run</label> <select id="seed"></select></div>
+    <div><span class="replaytag">Replay of recorded runs</span> <label for="seed">Run</label> <select id="seed"></select></div>
     <p class="footnote" id="runnote"></p>
   </div>
 </nav>
